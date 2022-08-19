@@ -1,0 +1,344 @@
+/*START Nav*/
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header{
+    padding-top: 25px;
+    border-bottom: 1px solid black;
+}
+#museum-header{
+    background-image: url('../images/header.jpg');
+    width: 100%;
+    max-height: 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+.title{
+    text-align: center;
+color: white;
+}
+
+nav{
+    min-height: 39px;
+    position: relative;
+    margin-left: 10%;
+}
+
+.menu-primary li{
+    float: left;
+    list-style-type: none;
+    min-height: 15px;
+}
+.menu-primary li a:link,
+.menu-primary li a:visited{
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 2px 10px 0 6px;
+}
+
+/*END Nav*/
+
+/*START HomePage*/
+.content-homepage{
+    padding-top: 2%;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+/*END HomePage*/
+
+/*START LeOpere*/
+.content-main{
+    padding-top: 2%;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    padding-bottom: 50px;
+}
+
+.content-main .works{
+    width: 33%;
+    max-height:500px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.content-main .works a:link,
+.content-main .works a:visited{
+    color: black;
+}
+
+.content-main .works a:hover{
+    background-color:grey;
+    color:white;
+}
+
+/*END LeOpere*/
+
+
+/*START Works*/
+.single-work{
+    padding-top: 2%;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+.single-work h2{
+    text-align: center;
+    padding-bottom: 2%;
+}
+
+.single-work img{
+    max-width: 80%;
+    height: auto;
+
+}
+.single-work #work-description{
+    position: relative;
+    padding-top: 40px;
+    padding-bottom: 30px;
+}
+
+#sketch-button{
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 2px solid black;
+    text-decoration: none;
+    cursor:pointer;
+    background-color: lightblue;
+}
+#sketch-button a:link,
+#sketch-button a:visited{
+    color: black;
+    text-decoration: none;
+    font-size:16px;
+}
+
+
+
+/*END Works*/
+
+/*START Sketch*/
+.sketch{
+    padding-top: 2%;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row;
+    text-align: center;
+}
+
+#sketch-container{
+    width: 75%;
+}
+
+#canvas-container{
+    position: relative;
+}
+
+canvas {
+    border: 2px solid #000000;
+    cursor:pointer;
+    z-index: 9999;
+}
+#back-image{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    z-index: -9999;
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-size: contain;
+}
+
+
+#right-container{
+    margin-left: 10px;
+    text-align: center;
+    width: 25%;
+}
+
+#right-container img{
+    display: none;
+}
+
+.bottone {
+    width: 70px;
+    height: 27px;
+    border: 1px solid #000000;
+    float: left;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+#controls {
+    display: flex;
+    flex-flow: column nowrap;
+    margin-top: 20px;
+    text-align: left;
+}
+
+#controls div{
+    display: grid;
+    margin: 4px 0;
+}
+#controls #buttonPen{
+    display: block;
+}
+
+#buttonWhite {
+    background-color: white;
+    font-size: 18px;
+    text-align: center;
+}
+#bottoneCancella {
+    background-color: black;
+    color: white;
+    padding: 1px;
+    font-size: 16px;
+    text-align: center;
+    height: 35px;
+}
+
+#bottoneSalva{
+    background-color: white;
+    font-size: 18px;
+    text-align: center;
+}
+
+#sketch-image-description{
+    display: none;
+}
+
+#social{
+    margin-left: 20px;
+    margin-top: 80px;
+    margin-bottom: 80px;
+    font-size: 25px;
+}
+
+#social .share-button{
+    max-width: 60px;
+    border: none;
+}
+
+/*END Sketch*/
+
+/*START Footer*/
+
+footer{
+    border-top: 1px solid #0c0c0c ;
+    background-color: #a3a3a3;
+    text-align: center;
+    width: 100%;
+    margin-top: auto;
+    padding-bottom: 10px;
+}
+footer .auth{
+    font-size: 26px;
+}
+
+#profile-picture{
+    max-width: 140px;
+    max-height: 130px;
+    border-radius: 100px;
+}
+
+#footer a:link,
+#footer a:visited{
+    color: black;
+}
+
+/*END Footer*/
+
+
+/*START Mobile Instructions*/
+
+@media screen and (max-width: 1345px){
+    .content-homepage{
+        margin: 0;
+        width: 98%;
+    }
+    .content-main{
+        margin: 0;
+        width: 98%;
+    }
+    .sketch{
+        margin: 0;
+        width: 98%;
+    }
+
+}
+
+@media screen and (max-width: 1200px) {
+    .sketch{
+        flex-flow: column;
+    }
+    #sketch-container{
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    #right-container{
+        margin-left: 10px;
+        text-align: center;
+        width: 100%;
+    }
+
+    #controls{
+        flex-flow: row nowrap;
+        justify-content: center;
+        text-align: center;
+    }
+    #controls div{
+        margin-left: 10px;
+    }
+
+    #controls #buttonPen{
+        display: contents;
+        padding-bottom: 5px;
+    }
+
+    #controls #buttonPen label{
+        padding-top: 5px;
+    }
+
+    #controls #buttonWhite{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+@media screen and (max-width: 1100px){
+    .content-main .works{
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .content-main .works{
+        width: 100%;
+    }
+    #controls{
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+}
