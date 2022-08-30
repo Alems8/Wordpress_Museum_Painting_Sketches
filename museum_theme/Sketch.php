@@ -3,8 +3,10 @@ Template Name: Sketch
 -->
 
 <?php get_header();?>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v14.0" nonce="qE2VWDqw"></script>
 
-<div class="sketch">
+<div id="main-sketch-container" class="sketch">
     <div id="sketch-container">
         <div id="canvas-container"><canvas id="areaDiDisegno" tabindex="0" ></canvas>
             <div id="back-image"></div>
@@ -52,8 +54,8 @@ Template Name: Sketch
 
 <div id="social">
     <p>Condividi sui social il tuo disegno!</p>
-    <button class="share-button" ><img src="<?php bloginfo('template_url')?>/images/facebook-svgrepo-com.svg" alt="logo di facebook per condivisione disegno" width="60px" height="auto" id="fbShare"></button>
-    <a class="share-button" ><img src="<?php bloginfo('template_url')?>/images/twitter-svgrepo-com.svg" alt="logo di twitter per condivisione disegno" width="60px" height="auto" id="twShare"></a>
+    <div class="fb-share-button" data-href="http://localhost/museum_project_wordpress/le-opere/opera-dettaglio/sketch/?postID=62" data-layout="button" data-size="small"><img src="<?php bloginfo('template_url')?>/images/facebook-svgrepo-com.svg" alt="logo di facebook per condivisione disegno" width="60px" height="auto" id="fbShare"></div>
+    <a class="twitter-share-button" ><img src="<?php bloginfo('template_url')?>/images/twitter-svgrepo-com.svg" alt="logo di twitter per condivisione disegno" width="60px" height="auto" id="twShare"></a>
 </div>
 
 
