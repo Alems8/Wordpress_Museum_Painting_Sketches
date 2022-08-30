@@ -13,6 +13,7 @@ let posizioneCorrenteX = null;
 let posizioneCorrenteY = null;
 
 let mouseIsDown = false;
+let isEraser = false;
 
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -23,36 +24,43 @@ document.addEventListener('DOMContentLoaded', function(){
     social = document.getElementById('social');
 
     let headerHeight = document.getElementById('museum-header').offsetHeight;
+    let margin = window.getComputedStyle(document.getElementById('main-sketch-container')).getPropertyValue('margin-right').replace('px','') * 2;
     let backImg = document.getElementById('right-container').getElementsByTagName('img')[0];
     let maxHeight = window.visualViewport.height - headerHeight;
+    let maxWidth = window.visualViewport.width - controls.offsetWidth - margin;
     let ratio = backImg.width / backImg.height;
 
-    calcolaDimensioniCanvas(ratio, maxHeight);
+    calcolaDimensioniCanvas(ratio, maxHeight, maxWidth);
 
     window.addEventListener('resize', function (){
-        calcolaDimensioniCanvas(ratio,maxHeight);
+        margin = window.getComputedStyle(document.getElementById('main-sketch-container')).getPropertyValue('margin-right').replace('px','') * 2;
+        maxHeight = window.visualViewport.height - headerHeight;
+        maxWidth = window.visualViewport.width - controls.offsetWidth - margin;
+        calcolaDimensioniCanvas(ratio,maxHeight,maxWidth);
     })
 
 
     controls.addEventListener('click', function (e){
         const id = e.target.id;
         if (id === 'buttonWhite'){
-            coloreSelezionato = 'white';
+            isEraser = true;
         }
         if (id === 'bottoneCancella'){
             cancella();
         }
         if(id === 'buttonColor'){
             coloreSelezionato = e.target.value;
+            isEraser = false;
         }
         if (id === 'bottoneSalva') {
+            isEraser = false;
             context.save();
             let imageUri = canvas.toDataURL("image/png");
             imageUri = imageUri.replace(/^data:image\/(png|jpg);base64,/, "");
 
             let js_src = null;
             let scripts = document.getElementsByTagName('script'),
-                script = scripts[2];
+                script = scripts[1];
 
             if (script.getAttribute.length !== undefined) {
                 js_src = script.src;
@@ -79,21 +87,27 @@ document.addEventListener('DOMContentLoaded', function(){
     controls.addEventListener('change', function (e){
         let id = e.target.id;
         if(id === 'buttonColor'){
+            isEraser = false;
             coloreSelezionato = e.target.value;
         }
         if(id === 'buttonSize'){
+            isEraser = false;
             larghezzaLinea = e.target.value;
         }
         if (id === 'buttonDetails'){
+            isEraser = false;
             trasparenza = e.target.value/100;
         }
         if (id === 'circle'){
+            isEraser = false;
             tratto = e.target.value;
         }
         if (id === 'square'){
+            isEraser = false;
             tratto = e.target.value;
         }
         if (id === 'highlighter'){
+            isEraser = false;
             tratto = e.target.value;
         }
     })
@@ -130,11 +144,19 @@ document.addEventListener('DOMContentLoaded', function(){
     social.addEventListener('click', function (e){
         let id = e.target.id;
         if (id === 'fbShare'){
+            document.getElementsByTagName("head")[0].innerHTML += "<meta property='og:image' content="+bi+"/>";
+            // document.getElementsByTagName("head")[0].innerHTML += "<meta property='og:description' content='"+description.textContent.substring(0, 280-url_length) + "'/>";
+            document.getElementsByTagName("head")[0].innerHTML += "<meta property='og:url' content='http://localhost/museum_project_wordpress/le-opere/opera-dettaglio/sketch/?postID=62'/>";
             let t = ' '
-            window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(canvasDrawing)+'&t='+encodeURIComponent(t),'sharer','toolbar=0,status=0,width=626,height=436');
+            window.open('http://www.facebook.com/sharer.php?','sharer','toolbar=0,status=0,width=626,height=436');
         }
         if (id === 'twShare'){
-            window.open( "https://twitter.com/intent/tweet?url="+canvasDrawing,'sharer','toolbar=0,status=0,width=626,height=436');
+            let url_length = (canvasDrawing+bi).length;
+            document.getElementsByTagName("head")[0].innerHTML += "<meta name='twitter:card' content='summary'>";
+            document.getElementsByTagName("head")[0].innerHTML += "<meta property='twitter:image' content="+bi+"/>";
+            // document.getElementsByTagName("head")[0].innerHTML += "<meta property='og:description' content='"+description.textContent.substring(0, 280-url_length) + "'/>";
+            document.getElementsByTagName("head")[0].innerHTML += "<meta property='twitter:url' content="+canvasDrawing +"/>";
+            window.open( "https://twitter.com/intent/tweet?url="+encodeURIComponent(canvasDrawing)+'&text='+description.textContent.substring(0, 280-url_length)+'  '+bi,'sharer','toolbar=0,status=0,width=626,height=436');
         }
     })
 });
@@ -204,16 +226,22 @@ function calcolaCoordinateMobile(e){
 
 
 function disegna(){
-    console.log('disegna');
-    context.beginPath();
-    context.moveTo(puntoInizioDisegnoX, puntoInizioDisegnoY);
-    context.lineTo(posizioneCorrenteX, posizioneCorrenteY);
-    context.strokeStyle = coloreSelezionato;
-    context.lineWidth = larghezzaLinea;
-    context.lineCap = tratto;
-    context.globalAlpha = trasparenza;
-    context.stroke();
-    context.closePath();
+    if (isEraser){
+        console.log('cancella');
+        context.clearRect(puntoInizioDisegnoX, puntoInizioDisegnoY, larghezzaLinea, larghezzaLinea);
+    }
+    else {
+        console.log('disegna');
+        context.beginPath();
+        context.moveTo(puntoInizioDisegnoX, puntoInizioDisegnoY);
+        context.lineTo(posizioneCorrenteX, posizioneCorrenteY);
+        context.strokeStyle = coloreSelezionato;
+        context.lineWidth = larghezzaLinea;
+        context.lineCap = tratto;
+        context.globalAlpha = trasparenza;
+        context.stroke();
+        context.closePath();
+    }
 }
 
 function cancella(){
@@ -223,11 +251,18 @@ function cancella(){
     }
 }
 
-function calcolaDimensioniCanvas(ratio, maxHeight){
+function calcolaDimensioniCanvas(ratio, maxHeight, maxWidth){
     canvas.height = maxHeight - 70;
-    canvas.width = canvas.height * ratio;
-    if (window.visualViewport.width < canvas.width) {
-        canvas.width = window.visualViewport.width - 20;
-        canvas.height = canvas.width / ratio;
+    let canvasWidth = canvas.height * ratio;
+    let ww = window.visualViewport.width
+    if(canvasWidth > maxWidth && window.visualViewport.width > 1200){
+        canvasWidth = maxWidth - 20;
+        canvas.height = canvasWidth / ratio;
     }
+    else if(window.visualViewport.width <= 1200){
+        canvasWidth = window.visualViewport.width;
+        canvas.height = canvasWidth / ratio;
+    }
+
+    canvas.width = canvasWidth - 20;
 }

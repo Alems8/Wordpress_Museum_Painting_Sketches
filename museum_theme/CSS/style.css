@@ -71,7 +71,7 @@ nav{
 
 .content-main .works{
     width: 33%;
-    max-height:500px;
+    max-height:600px;
     text-align: center;
     margin: 10px 0;
 }
@@ -234,7 +234,11 @@ canvas {
     font-size: 25px;
 }
 
-#social .share-button{
+#social .fb-share-button{
+    max-width: 60px;
+    border: none;
+}
+#social .twitter-share-button{
     max-width: 60px;
     border: none;
 }
