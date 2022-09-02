@@ -145,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function(){
         let id = e.target.id;
         if (id === 'fbShare'){
             document.getElementsByTagName("head")[0].innerHTML += "<meta property='og:image' content="+bi+"/>";
-            // document.getElementsByTagName("head")[0].innerHTML += "<meta property='og:description' content='"+description.textContent.substring(0, 280-url_length) + "'/>";
             document.getElementsByTagName("head")[0].innerHTML += "<meta property='og:url' content='http://localhost/museum_project_wordpress/le-opere/opera-dettaglio/sketch/?postID=62'/>";
             let t = ' '
             window.open('http://www.facebook.com/sharer.php?','sharer','toolbar=0,status=0,width=626,height=436');
@@ -154,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function(){
             let url_length = (canvasDrawing+bi).length;
             document.getElementsByTagName("head")[0].innerHTML += "<meta name='twitter:card' content='summary'>";
             document.getElementsByTagName("head")[0].innerHTML += "<meta property='twitter:image' content="+bi+"/>";
-            // document.getElementsByTagName("head")[0].innerHTML += "<meta property='og:description' content='"+description.textContent.substring(0, 280-url_length) + "'/>";
             document.getElementsByTagName("head")[0].innerHTML += "<meta property='twitter:url' content="+canvasDrawing +"/>";
             window.open( "https://twitter.com/intent/tweet?url="+encodeURIComponent(canvasDrawing)+'&text='+description.textContent.substring(0, 280-url_length)+'  '+bi,'sharer','toolbar=0,status=0,width=626,height=436');
         }
